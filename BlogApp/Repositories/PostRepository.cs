@@ -22,9 +22,6 @@ namespace BlogApp.Repositories
         {
             return _db.Posts.OrderByDescending(s => s.Id).Take(3).ToList();
         }
-
-
-
         public Post Findbyid(int id)
         {
             return _db.Posts.Find(id);

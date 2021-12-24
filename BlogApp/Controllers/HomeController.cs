@@ -13,14 +13,19 @@ namespace BlogApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        ApplicationDbContext _db;
+        private readonly CommentRepository _cRepo;
         private readonly PostRepository _postRepository;
         private readonly TagRepository _tagRepository;
 
-        public HomeController(ILogger<HomeController> logger, PostRepository postRepository, TagRepository tagRepository)
+        public HomeController(ILogger<HomeController> logger, PostRepository postRepository, TagRepository tagRepository,CommentRepository cRepo)
         {
             _logger = logger;
             _postRepository = postRepository;
             _tagRepository = tagRepository;
+            _cRepo = cRepo;
+            _db = new ApplicationDbContext();
+
         }
 
         public IActionResult Index()
@@ -35,19 +40,47 @@ namespace BlogApp.Controllers
             return View(tp);
         }
 
-        [HttpGet]
-        public IActionResult GetPostsbyid(int id)
-        {
-
-            var item = _postRepository.Findbyid(id);
-
-            if (item == null)
+        
+            public ActionResult GetPostsbyid(int id)
             {
-                throw new System.Exception("Bu elemen bulunmuyor");
+
+                ViewModel d = new ViewModel();
+
+                var item = _postRepository.Findbyid(id); //3 geliyor mesela post id burda 
+
+                d.post = item;
+
+                var comment = _db.Comments.Where(x => x.PostId == id);
+
+
+                foreach (var i in comment)
+                {
+                    d.comments.Add(i);
+                }
+
+
+                return View(d);
             }
 
 
-            return View(item);
+        public class CommentInputModel
+        {
+            public string CommentName { get; set; }
+            public string Content { get; set; }
+            public int PostId { get; set; }
+        }
+
+        [HttpPost]
+        public ActionResult GetPostsbyid(CommentInputModel c)
+        {
+            var comment = new Comment();
+            comment.Content = c.Content;
+            comment.CommentName = c.CommentName;
+
+            _cRepo.Add(comment);
+            return View();
+
+          
         }
         public IActionResult Privacy()
         {

@@ -18,7 +18,7 @@
                                             @foreach (var item in Model) //5 post döndürüyor burası
                                             {
                                 <li>
-                                    <a href="post-details.html">
+                                    <a href="~/Home/GetPostsbyid/@item.Id">
                                         <h5>@item.Title</h5>
                                         <span>@item.PublishDate</span>
                                     </a>

@@ -14,7 +14,6 @@ namespace BlogApp.Models
         public DateTime PublishDate { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
-        public int CommentId { get; set; }
         public List<Comment> Comments { get; set; }
     }
 }

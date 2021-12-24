@@ -1,4 +1,5 @@
 using BlogApp.Repositories;
+using BlogApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,9 @@ namespace BlogApp
             services.AddControllersWithViews();
             services.AddScoped<PostRepository>();
             services.AddScoped<TagRepository>();
+            services.AddScoped<ContactRepository>();
+            services.AddScoped<SmtpMailService>();
+            services.AddScoped<CommentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

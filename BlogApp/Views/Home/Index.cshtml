@@ -6,15 +6,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div style="padding-top:100px;">
-
+<div>
+    <br />
     <section class="blog-posts grid-system">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="all-blog-posts">
                         <div class="row">
-
 
                             @foreach (var item in Model.Posts)
                             {
@@ -25,7 +24,7 @@
                                         </div>
                                         <div class="down-content">
                                             <span>@item.Category.CategoryName</span>
-                                            <a href="post-details.html"><h4>@item.Title</h4></a>
+                                            <a href="~/Home/GetPostsbyid/@item.Id"><h4>@item.Title</h4></a>
                                             <ul class="post-info">
                                                 <li><a href="#">@item.AuthorName</a></li>
                                                 <li><a href="#">@item.PublishDate</a></li>
@@ -76,7 +75,7 @@
                                         <ul>
                                             @foreach (var item in Model.Posts)
                                             {
-                                                <li><a href="#">@item.Category.CategoryName</a></li>
+                                                <li><a href="">@item.Category.CategoryName</a></li>
                                             }
 
 

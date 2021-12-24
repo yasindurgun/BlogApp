@@ -13,7 +13,7 @@ namespace BlogApp.Models
         {
 
         }
-        public IConfiguration Configuration { get; }
+      
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=.;Database=BlogApp;uid=sa;pwd=1234;MultipleActiveResultSets=true");
