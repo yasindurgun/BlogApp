@@ -122,6 +122,19 @@ namespace BlogApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       
+        [HttpPost]
+        public IActionResult SearchPost(string text)
+        {
+            List<Post> searchedpsot = _postRepository.postlisting(text);
+
+            if (searchedpsot == null)
+            {
+                throw new System.Exception("Aradığınız makale bulunamamakta.");
+            }
+
+            return View(searchedpsot);
+        }
+
+
     }
 }

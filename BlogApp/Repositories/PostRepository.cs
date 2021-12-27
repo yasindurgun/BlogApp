@@ -36,5 +36,11 @@ namespace BlogApp.Repositories
             return _db.Comments.Where(x => x.PostId == id);
          
         }
+
+        public List<Post> postlisting(string text)
+        {
+            return _db.Posts.Where(x => x.Content.Contains(text) || x.Title.Contains(text)).ToList();
+        }
+
     }
 }
