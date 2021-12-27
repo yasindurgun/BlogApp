@@ -20,9 +20,9 @@ namespace BlogApp.ViewComponents
             _postrepository = p;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync (string text)
+        public async Task<IViewComponentResult> InvokeAsync ()
         {
-            List<Post> searchedpsot = _postrepository.postlisting(text);
+            List<Post> searchedpsot = _postrepository.ListPost();
 
             if (searchedpsot == null)
             {

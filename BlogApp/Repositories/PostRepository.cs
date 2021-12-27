@@ -42,5 +42,10 @@ namespace BlogApp.Repositories
             return _db.Posts.Where(x => x.Content.Contains(text) || x.Title.Contains(text)).ToList();
         }
 
+        public List<Post> ListPost()
+        {
+            return _db.Posts.ToList();
+        }
+
     }
 }
