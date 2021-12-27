@@ -63,6 +63,28 @@ namespace BlogApp.Controllers
                 return View(d);
             }
 
+        public ActionResult GetPostsbyCategory(string id)
+        {
+
+            ViewModel d = new ViewModel();
+
+
+            var item = _postRepository.FindbyCategoryid(id); //3 geliyor mesela post id burda 
+
+            d.post = item;
+
+            var commen = _postRepository.Where(id);
+
+
+            foreach (var i in commen)
+            {
+                d.comments.Add(i);
+            }
+
+
+            return View(d);
+        }
+
 
         [HttpPost]
         public ActionResult GetPostsbyid(Comment c,string id)

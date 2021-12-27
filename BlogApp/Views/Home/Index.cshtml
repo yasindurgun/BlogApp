@@ -76,7 +76,7 @@
                                         <ul>
                                             @foreach (var item in Model.Posts)
                                             {
-                                                <li><a href="">@item.Category.CategoryName</a></li>
+                                                <li><a href="~/Home/GetPostsbyCategory/@item.Category.Id">@item.Category.CategoryName</a></li>
                                             }
 
 

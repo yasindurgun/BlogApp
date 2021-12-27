@@ -26,6 +26,11 @@ namespace BlogApp.Repositories
         {
             return _db.Posts.Find(id);
         }
+
+         public Post FindbyCategoryid(string id)
+        {
+            return _db.Posts.Find(id);
+        }
         public IQueryable<Comment> Where(string id)
         {
             return _db.Comments.Where(x => x.PostId == id);
