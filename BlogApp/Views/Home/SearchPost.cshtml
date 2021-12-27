@@ -4,17 +4,112 @@
 @{
 }
 
+
+
+
+
+@using BlogApp.Models
 @model List<Post>
 
-
-@foreach (var item in Model)
-{
-    <h2 style="padding-top:250px;">@item.Title</h2>
-
-    @if (item.Content.Length > 250)
-    {
-        <h2>@item.Content.Substring(0, 250) </h2>
-
-        <a href="~/Home/GetPostsbyid/@item.Id"> <h5> @item.Content </h5></a> <span>@item.PublishDate</span>
-    }
+@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div>
+    <br />
+    <section class="blog-posts grid-system">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="all-blog-posts">
+                        <div class="row">
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-lg-6">
+                                    <div class="blog-post">
+                                        <div class="blog-thumb">
+                                            <img src="assets/images/blog-thumb-01.jpg" alt="">
+                                        </div>
+                                        <div class="down-content">
+
+                                            <a style="padding-top:50px;" href="~/Home/GetPostsbyid/@item.Id"> <h5> @item.Content </h5></a> 
+                                            <ul class="post-info">
+                                                <li><a href="#">@item.AuthorName</a></li>
+                                                <li><a href="#">@item.PublishDate</a></li>
+                                                <li><a href="#"></a>Comment Count</li>
+                                            </ul>
+                                            <p>@item.Content</p>
+                                            <div class="post-options">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="sidebar-item search">
+                                    @await Component.InvokeAsync("Search")
+
+                                    @using (Html.BeginForm("SearchPost", "Home", FormMethod.Post))
+                                    {
+                                        <input type="text" name="text" placeholder="Bir değer giriniz">
+                                        <input type="submit" value="Ara" />
+                                    }
+
+
+
+                                </div>
+                            </div>
+
+
+                            @await Component.InvokeAsync("RecentPosts")
+
+                            <div class="col-lg-12">
+                                <div class="sidebar-item categories">
+                                    <div class="sidebar-heading">
+                                        <h2>Categories</h2>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="sidebar-item tags">
+                                    <div class="sidebar-heading">
+                                        <h2>Tag Clouds</h2>
+                                    </div>
+                                    <div class="content">
+                                        <ul>
+
+                                           
+                                            @*
+                                                <li><a href="#">Creative</a></li>
+                                                <li><a href="#">HTML5</a></li>
+                                                <li><a href="#">Inspiration</a></li>
+                                                <li><a href="#">Motivation</a></li>
+                                                <li><a href="#">PSD</a></li>
+                                                <li><a href="#">Responsive</a></li>*@
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
