@@ -125,14 +125,22 @@ namespace BlogApp.Controllers
         [HttpPost]
         public IActionResult SearchPost(string text)
         {
+           
             List<Post> searchedpsot = _postRepository.postlisting(text);
 
             if (searchedpsot == null)
             {
                 throw new System.Exception("Aradığınız makale bulunamamakta.");
             }
-
+            if (string.IsNullOrEmpty(text))
+            {
+               var empty= _postRepository.List();
+                return View(empty);
+            }
+            else 
+            { 
             return View(searchedpsot);
+            }
         }
 
 

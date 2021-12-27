@@ -1,18 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-
-
-<<<<<<< HEAD
-@foreach (var item in Model)
-{
-
-=======
->>>>>>> 647289a06a522bc2f91ba646ce6f286fe0a5b41b
-
+﻿
 
 @using BlogApp.Models
 @model List<Post>
@@ -72,6 +58,7 @@
                                     @using (Html.BeginForm("SearchPost", "Home", FormMethod.Post))
                                     {
                                         <input type="text" name="text" placeholder="Bir değer giriniz">
+                                        
                                         <input type="submit" value="Ara" />
                                     }
 
