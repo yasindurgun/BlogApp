@@ -7,10 +7,10 @@ namespace BlogApp.Models
 {
     public class TagPostRelation
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public Post Post { get; set; }
-        public int PostId { get; set; }
+        public string PostId { get; set; }
         public Tag Tag { get; set; }
-        public int TagId { get; set; }
+        public string TagId { get; set; }
     }
 }

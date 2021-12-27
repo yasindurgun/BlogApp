@@ -9,13 +9,15 @@ namespace BlogApp.Models
 {
     public class Comment
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public string CommentName { get; set; }
         public string Content { get; set; }
         public DateTime PublishDate { get; set; }
+       
+        public string PostId { get; set; }
+
         public Post Post { get; set; }
-        public int PostId { get; set; }
 
     }
 }

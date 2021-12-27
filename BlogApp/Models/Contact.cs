@@ -7,7 +7,7 @@ namespace BlogApp.Models
 {
     public class Contact
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; }
         public string ContentMessage { get; set; }
     }

@@ -13,7 +13,7 @@ namespace BlogApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        ApplicationDbContext _db;
+    
         private readonly CommentRepository _cRepo;
         private readonly PostRepository _postRepository;
         private readonly TagRepository _tagRepository;
@@ -24,7 +24,6 @@ namespace BlogApp.Controllers
             _postRepository = postRepository;
             _tagRepository = tagRepository;
             _cRepo = cRepo;
-            _db = new ApplicationDbContext();
 
         }
 
@@ -41,19 +40,21 @@ namespace BlogApp.Controllers
         }
 
         
-            public ActionResult GetPostsbyid(int id)
+
+        public ActionResult GetPostsbyid(string id)
             {
 
                 ViewModel d = new ViewModel();
+
 
                 var item = _postRepository.Findbyid(id); //3 geliyor mesela post id burda 
 
                 d.post = item;
 
-                var comment = _db.Comments.Where(x => x.PostId == id);
+                var commen = _postRepository.Where(id);
 
 
-                foreach (var i in comment)
+                foreach (var i in commen)
                 {
                     d.comments.Add(i);
                 }
@@ -63,24 +64,30 @@ namespace BlogApp.Controllers
             }
 
 
-        public class CommentInputModel
-        {
-            public string CommentName { get; set; }
-            public string Content { get; set; }
-            public int PostId { get; set; }
-        }
-
         [HttpPost]
-        public ActionResult GetPostsbyid(CommentInputModel c)
+        public ActionResult GetPostsbyid(Comment c,string id)
         {
-            var comment = new Comment();
-            comment.Content = c.Content;
-            comment.CommentName = c.CommentName;
 
-            _cRepo.Add(comment);
-            return View();
+            ViewModel d = new ViewModel();
 
-          
+            c.Id = Guid.NewGuid().ToString();
+            _cRepo.Add(c);
+
+            var item = _postRepository.Findbyid(id); //3 geliyor mesela post id burda 
+
+            d.post = item;
+
+            var commen = _postRepository.Where(id);
+
+
+            foreach (var i in commen)
+            {
+                d.comments.Add(i);
+            }
+
+
+            return View(d);
+
         }
         public IActionResult Privacy()
         {

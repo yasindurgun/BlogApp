@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211222152305_First")]
-    partial class First
+    [Migration("20211226192511_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,10 +23,8 @@ namespace BlogApp.Migrations
 
             modelBuilder.Entity("BlogApp.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
@@ -38,10 +36,8 @@ namespace BlogApp.Migrations
 
             modelBuilder.Entity("BlogApp.Models.Comment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CommentName")
                         .HasColumnType("nvarchar(max)");
@@ -49,8 +45,8 @@ namespace BlogApp.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
+                    b.Property<string>("PostId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
@@ -64,10 +60,8 @@ namespace BlogApp.Migrations
 
             modelBuilder.Entity("BlogApp.Models.Contact", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ContentMessage")
                         .HasColumnType("nvarchar(max)");
@@ -82,19 +76,14 @@ namespace BlogApp.Migrations
 
             modelBuilder.Entity("BlogApp.Models.Post", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AuthorName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -114,10 +103,8 @@ namespace BlogApp.Migrations
 
             modelBuilder.Entity("BlogApp.Models.Tag", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TagName")
                         .HasColumnType("nvarchar(max)");
@@ -129,16 +116,14 @@ namespace BlogApp.Migrations
 
             modelBuilder.Entity("BlogApp.Models.TagPostRelation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
+                    b.Property<string>("PostId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
+                    b.Property<string>("TagId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -151,18 +136,18 @@ namespace BlogApp.Migrations
 
             modelBuilder.Entity("BlogApp.Models.Comment", b =>
                 {
-                    b.HasOne("BlogApp.Models.Post", null)
-                        .WithMany("Comments")
+                    b.HasOne("BlogApp.Models.Post", "Post")
+                        .WithMany()
                         .HasForeignKey("PostId");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("BlogApp.Models.Post", b =>
                 {
                     b.HasOne("BlogApp.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });
@@ -171,24 +156,15 @@ namespace BlogApp.Migrations
                 {
                     b.HasOne("BlogApp.Models.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PostId");
 
                     b.HasOne("BlogApp.Models.Tag", "Tag")
                         .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TagId");
 
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
-                });
-
-            modelBuilder.Entity("BlogApp.Models.Post", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

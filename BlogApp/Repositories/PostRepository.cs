@@ -22,9 +22,14 @@ namespace BlogApp.Repositories
         {
             return _db.Posts.OrderByDescending(s => s.Id).Take(3).ToList();
         }
-        public Post Findbyid(int id)
+        public Post Findbyid(string id)
         {
             return _db.Posts.Find(id);
+        }
+        public IQueryable<Comment> Where(string id)
+        {
+            return _db.Comments.Where(x => x.PostId == id);
+         
         }
     }
 }
