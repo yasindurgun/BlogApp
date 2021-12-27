@@ -69,17 +69,13 @@ namespace BlogApp.Controllers
             ViewModel d = new ViewModel();
 
 
-            var item = _postRepository.FindbyCategoryid(id); //3 geliyor mesela post id burda 
+            var item = _postRepository.FindbyCategoryid(id);
 
-            d.post = item;
+            var postitem = _postRepository.findcat(id);
 
-            var commen = _postRepository.Where(id);
+            d.category = item;
+            d.postlist = postitem;
 
-
-            foreach (var i in commen)
-            {
-                d.comments.Add(i);
-            }
 
 
             return View(d);
@@ -134,6 +130,10 @@ namespace BlogApp.Controllers
 
             return View(searchedpsot);
         }
+
+
+
+     
 
 
     }

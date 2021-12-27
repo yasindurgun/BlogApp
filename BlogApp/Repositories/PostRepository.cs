@@ -27,9 +27,9 @@ namespace BlogApp.Repositories
             return _db.Posts.Find(id);
         }
 
-         public Post FindbyCategoryid(string id)
+         public List<Category> FindbyCategoryid(string id)
         {
-            return _db.Posts.Find(id);
+            return _db.Categories.Where(x => x.Id == id).ToList();
         }
         public IQueryable<Comment> Where(string id)
         {
@@ -46,6 +46,29 @@ namespace BlogApp.Repositories
         {
             return _db.Posts.ToList();
         }
+
+        public Category FindCategory(string id)
+        {
+            return _db.Categories.Find(id);
+        }
+
+        public List<Category> ListCategory()
+        {
+            return _db.Categories.ToList();
+        }
+
+        public List<Category> postCategory(string id)
+        {
+            return _db.Categories.Where(x => x.Id == id).ToList();
+        }
+
+
+        public List<Post> findcat(string id)
+        {
+            return _db.Posts.Where(x=>x.CategoryId == id).ToList();
+        }
+
+
 
     }
 }
