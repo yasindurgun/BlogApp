@@ -29,6 +29,7 @@ namespace BlogApp.ViewComponents
                 throw new System.Exception("Aradığınız makale bulunamamakta.");
             }
 
+           
             return View(await Task.FromResult(searchedpsot));
         }
 
