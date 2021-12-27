@@ -7,18 +7,33 @@
 
 @model List<BlogApp.Models.Category>
 @*burdan id yi o controllera yollıycaksın ana sayfayı viewleyen orda fonksiyon yaz gönderilen id ile metni bulcak olan ordan sayfaya bastırt*@
-<ul>
-    @foreach (var item in Model) //5 post döndürüyor burası
-    {
-
-        <li> <a href="~/Home/GetPostsbyCategory/@item.Id"> <h5> @item.CategoryName </h5></a>   </li>
 
 
 
-    }
+
+<div class="col-lg-12">
+    <div class="sidebar-item categories">
+        <div class="sidebar-heading">
+            <h2>Categories</h2>
+        </div>
+        <div class="content">
+            <ul>
+
+                @foreach (var item in Model) //5 post döndürüyor burası
+                {
+
+                    <li> <a href="~/Home/GetPostsbyCategory/@item.Id"> <h5> @item.CategoryName </h5></a>   </li>
 
 
-</ul>
+
+                }
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
 
 
 
