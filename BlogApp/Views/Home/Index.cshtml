@@ -1,4 +1,7 @@
-﻿@using BlogApp.Models
+﻿@using  BlogApp.Models
+@using PagedList.Mvc;
+@using PagedList;
+
 @model IndexViewModel
 
 @{
@@ -42,15 +45,15 @@
                                 </div>
                             }
 
-                                <div class="col-lg-12">
-                                    <ul class="page-numbers">
-                                        <li><a href="#">1</a></li>
-                                        <li class="active"><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                                    </ul>
-                                </div>
+                            <div class="col-lg-12">
+                                <ul class="page-numbers">
+                                    <li><a href="#">1</a></li>
+                                    <li class="active"><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                </ul>
                             </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -60,12 +63,12 @@
                                 <div class="sidebar-item search">
                                     @await Component.InvokeAsync("Search")
 
-                                        @using (Html.BeginForm("SearchPost", "Home", FormMethod.Post))
-                                        {
-                                            <input type="text" name="text" placeholder="Bir değer giriniz">
-                                            <input type="submit" value="Ara" />
-                                        }
-                                   
+                                    @using (Html.BeginForm("SearchPost", "Home", FormMethod.Post))
+                                    {
+                                        <input type="text" name="text" placeholder="Bir değer giriniz">
+                                        <input type="submit" value="Ara" />
+                                    }
+
 
 
                                 </div>
@@ -74,7 +77,6 @@
 
                             @await Component.InvokeAsync("RecentPosts")
 
-                            @await Component.InvokeAsync("Categories")
 
                             <div class="col-lg-12">
                                 <div class="sidebar-item categories">
@@ -83,10 +85,13 @@
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            @foreach (var item in Model.Posts)
+
+                                            @await Component.InvokeAsync("Categories")
+
+                                            @*@foreach (var item in Model.Posts)
                                             {
                                                 <li><a href="~/Home/GetPostsbyCategory/@item.Category.Id">@item.Category.CategoryName</a></li>
-                                            }
+                                            }*@
 
 
                                         </ul>
@@ -107,12 +112,12 @@
                                             }
 
                                             @*
-                        <li><a href="#">Creative</a></li>
-                        <li><a href="#">HTML5</a></li>
-                        <li><a href="#">Inspiration</a></li>
-                        <li><a href="#">Motivation</a></li>
-                        <li><a href="#">PSD</a></li>
-                        <li><a href="#">Responsive</a></li>*@
+                                                <li><a href="#">Creative</a></li>
+                                                <li><a href="#">HTML5</a></li>
+                                                <li><a href="#">Inspiration</a></li>
+                                                <li><a href="#">Motivation</a></li>
+                                                <li><a href="#">PSD</a></li>
+                                                <li><a href="#">Responsive</a></li>*@
                                         </ul>
                                     </div>
                                 </div>
@@ -124,4 +129,5 @@
         </div>
     </section>
 </div>
+
 

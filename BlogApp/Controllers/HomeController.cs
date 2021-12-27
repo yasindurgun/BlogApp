@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using PagedList.Mvc;
+using PagedList;
 
 namespace BlogApp.Controllers
 {
@@ -27,7 +29,7 @@ namespace BlogApp.Controllers
 
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int ?i)
         {
             var posts = _postRepository.List();
             var tags = _tagRepository.List();
@@ -35,6 +37,7 @@ namespace BlogApp.Controllers
             IndexViewModel tp = new IndexViewModel();
             tp.Posts = posts;
             tp.Tags = tags;
+
 
             return View(tp);
         }
