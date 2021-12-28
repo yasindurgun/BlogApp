@@ -12,5 +12,7 @@ namespace BlogApp.Models
         public string PostId { get; set; }
         public Tag Tag { get; set; }
         public string TagId { get; set; }
+
+        public string TagName { get; set; }
     }
 }

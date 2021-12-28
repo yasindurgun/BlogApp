@@ -4,14 +4,16 @@ using BlogApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlogApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211227201754_newMigration")]
+    partial class newMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,12 +91,17 @@ namespace BlogApp.Migrations
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("TagId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("TagId");
 
                     b.ToTable("Posts");
                 });
@@ -123,9 +130,6 @@ namespace BlogApp.Migrations
                     b.Property<string>("TagId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("TagName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PostId");
@@ -133,21 +137,6 @@ namespace BlogApp.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("TagPostRelations");
-                });
-
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.Property<string>("PostTagsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TagPostId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PostTagsId", "TagPostId");
-
-                    b.HasIndex("TagPostId");
-
-                    b.ToTable("PostTag");
                 });
 
             modelBuilder.Entity("BlogApp.Models.Comment", b =>
@@ -165,7 +154,13 @@ namespace BlogApp.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("BlogApp.Models.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId");
+
                     b.Navigation("Category");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("BlogApp.Models.TagPostRelation", b =>
@@ -181,21 +176,6 @@ namespace BlogApp.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
-                });
-
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.HasOne("BlogApp.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("PostTagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlogApp.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("TagPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BlogApp.Models.Post", b =>

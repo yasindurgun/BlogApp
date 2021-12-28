@@ -9,5 +9,7 @@ namespace BlogApp.Models
     {
         public List<Post> Posts { get; set; }
         public List<Tag> Tags { get; set; }
+        public List<TagPostRelation> tagList { get; set; } = new();
+
     }
 }

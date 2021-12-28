@@ -31,6 +31,7 @@ namespace BlogApp
             services.AddScoped<ContactRepository>();
             services.AddScoped<SmtpMailService>();
             services.AddScoped<CommentRepository>();
+            services.AddScoped<TagPostRelationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

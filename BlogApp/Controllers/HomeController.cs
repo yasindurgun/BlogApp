@@ -19,13 +19,15 @@ namespace BlogApp.Controllers
         private readonly CommentRepository _cRepo;
         private readonly PostRepository _postRepository;
         private readonly TagRepository _tagRepository;
+        private readonly TagPostRelationRepository _tagPostRelationRepository;
 
-        public HomeController(ILogger<HomeController> logger, PostRepository postRepository, TagRepository tagRepository,CommentRepository cRepo)
+        public HomeController(ILogger<HomeController> logger, PostRepository postRepository, TagRepository tagRepository,CommentRepository cRepo,TagPostRelationRepository tagPostRelationRepository)
         {
             _logger = logger;
             _postRepository = postRepository;
             _tagRepository = tagRepository;
             _cRepo = cRepo;
+            _tagPostRelationRepository = tagPostRelationRepository;
 
         }
 
@@ -33,10 +35,13 @@ namespace BlogApp.Controllers
         {
             var posts = _postRepository.List();
             var tags = _tagRepository.List();
+            var tagPosts = _tagPostRelationRepository.List();
+
 
             IndexViewModel tp = new IndexViewModel();
             tp.Posts = posts;
             tp.Tags = tags;
+            tp.tagList = tagPosts;
 
 
             return View(tp);
@@ -63,8 +68,38 @@ namespace BlogApp.Controllers
                 }
 
 
-                return View(d);
+            var tags = _tagPostRelationRepository.GetTagsByPostId(id);
+            foreach (var i in tags)
+            {
+                d.tagList.Add(i);
             }
+            return View(d);
+            }
+
+        public ActionResult GetPostsbyTagid(string id)
+        {
+
+            ViewModel d = new ViewModel();
+
+
+            var item = _tagPostRelationRepository.GetPostsByTagId(id); //3 geliyor mesela post id burda 
+            var item2 = _postRepository.FindbyCategoryid(id);
+
+            var postitem = _postRepository.findcat(id);
+
+            d.category = item2;
+            d.postlist = postitem;
+            d.category = item2;
+            d.postlist = postitem;
+            foreach (var i in item)
+            {
+                d.tagList.Add(i);
+            }
+
+       
+
+            return View(d);
+        }
 
         public ActionResult GetPostsbyCategory(string id)
         {
@@ -75,9 +110,17 @@ namespace BlogApp.Controllers
             var item = _postRepository.FindbyCategoryid(id);
 
             var postitem = _postRepository.findcat(id);
+           
+
 
             d.category = item;
             d.postlist = postitem;
+
+            var tags = _tagPostRelationRepository.GetTagsByPostId(id);
+            foreach (var i in tags)
+            {
+                d.tagList.Add(i);
+            }
 
 
 
@@ -100,16 +143,20 @@ namespace BlogApp.Controllers
 
             var commen = _postRepository.Where(id);
 
-
+            
             foreach (var i in commen)
             {
                 d.comments.Add(i);
             }
 
 
+
+
             return View(d);
 
         }
+
+
         public IActionResult Privacy()
         {
             return View();

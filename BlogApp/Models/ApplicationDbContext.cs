@@ -16,8 +16,9 @@ namespace BlogApp.Models
       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.;Database=BlogApp;uid=sa;pwd=1234;MultipleActiveResultSets=true");
-
+            // optionsBuilder.UseSqlServer(@"Server=.;Database=BlogApp;uid=sa;pwd=1234;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-G9N5CHK\ENESSQL;Database=BlogApp;Trusted_Connection=True;");
+          
             base.OnConfiguring(optionsBuilder);
         }
 

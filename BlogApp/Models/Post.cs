@@ -15,7 +15,8 @@ namespace BlogApp.Models
         public Category Category { get; set; }
         public string CategoryId { get; set; }
         public List <Comment> Comments { get; set; }
+        public List<Tag> PostTags { get; set; } = new List<Tag>();
 
-       
+
     }
 }

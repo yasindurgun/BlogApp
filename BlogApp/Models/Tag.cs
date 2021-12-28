@@ -10,5 +10,7 @@ namespace BlogApp.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string TagName { get; set; }
 
+        public List<Post> TagPost { get; set;  } = new List<Post>();
+
     }
 }

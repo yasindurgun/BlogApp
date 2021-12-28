@@ -16,6 +16,6 @@ namespace BlogApp.Models
 
         public List<Post> postlist { get; set; } = new List<Post>();
 
-
+        public List<TagPostRelation> tagList { get; set; } = new List<TagPostRelation>();
     }
 }

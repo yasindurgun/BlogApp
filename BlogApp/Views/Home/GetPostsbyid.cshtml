@@ -42,7 +42,7 @@
             </div>
         </div>
     </section>
-</div>  
+</div>
 <!-- Banner Ends Here -->
 
 
@@ -137,7 +137,7 @@
                                                 </div>
 
                                             </div>
-                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -160,72 +160,36 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="sidebar-item search">
-                                <form id="search_form" name="gs" method="GET" action="#">
-                                    <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
-                                </form>
+                                @await Component.InvokeAsync("Search")
+
+                                @using (Html.BeginForm("SearchPost", "Home", FormMethod.Post))
+                                {
+                                    <input type="text" name="text" placeholder="Bir değer giriniz">
+                                    <input type="submit" value="Ara" />
+                                }
+
+                                @using (Html.BeginForm("SearchPost", "Home", FormMethod.Post))
+                                {
+                                    <input type="text" name="text" placeholder="Bir değer giriniz">
+
+
+                                }
+
+
+
                             </div>
                         </div>
 
 
+                        @await Component.InvokeAsync("RecentPosts")
 
 
 
 
-
-
-                        <div class="col-lg-12">
-                            <div class="sidebar-item recent-posts">
-                                <div class="sidebar-heading">
-                                    <h2>Recent Posts</h2>
-                                </div>
-                                <div class="content">
-                                    <ul>
-                                        <li>
-                                            <a href="post-details.html">
-                                                <h5>Vestibulum id turpis porttitor sapien facilisis scelerisque</h5>
-                                                <span>May 31, 2020</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="post-details.html">
-                                                <h5>Suspendisse et metus nec libero ultrices varius eget in risus</h5>
-                                                <span>May 28, 2020</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="post-details.html">
-                                                <h5>Swag hella echo park leggings, shaman cornhole ethical coloring</h5>
-                                                <span>May 14, 2020</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        @await Component.InvokeAsync("Categories")
 
 
 
-
-
-
-
-                        <div class="col-lg-12">
-                            <div class="sidebar-item categories">
-                                <div class="sidebar-heading">
-                                    <h2>Categories</h2>
-                                </div>
-                                <div class="content">
-                                    <ul>
-                                        <li><a href="#">- Nature Lifestyle</a></li>
-                                        <li><a href="#">- Awesome Layouts</a></li>
-                                        <li><a href="#">- Creative Ideas</a></li>
-                                        <li><a href="#">- Responsive Templates</a></li>
-                                        <li><a href="#">- HTML5 / CSS3 Templates</a></li>
-                                        <li><a href="#">- Creative &amp; Unique</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-lg-12">
                             <div class="sidebar-item tags">
                                 <div class="sidebar-heading">
@@ -233,13 +197,19 @@
                                 </div>
                                 <div class="content">
                                     <ul>
-                                        <li><a href="#">Lifestyle</a></li>
-                                        <li><a href="#">Creative</a></li>
-                                        <li><a href="#">HTML5</a></li>
-                                        <li><a href="#">Inspiration</a></li>
-                                        <li><a href="#">Motivation</a></li>
-                                        <li><a href="#">PSD</a></li>
-                                        <li><a href="#">Responsive</a></li>
+                                        @foreach (var item in Model.tagList)
+                                        {
+                                            <li><a href="/Home/GetPostbyTagid/@item.Id">@item.TagName</a></li>
+                                        }
+
+
+                                        @*
+                                            <li><a href="#">Creative</a></li>
+                                            <li><a href="#">HTML5</a></li>
+                                            <li><a href="#">Inspiration</a></li>
+                                            <li><a href="#">Motivation</a></li>
+                                            <li><a href="#">PSD</a></li>
+                                            <li><a href="#">Responsive</a></li>*@
                                     </ul>
                                 </div>
                             </div>
@@ -255,27 +225,4 @@
 
 
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-
-<!-- Additional Scripts -->
-<script src="assets/js/custom.js"></script>
-<script src="assets/js/owl.js"></script>
-<script src="assets/js/slick.js"></script>
-<script src="assets/js/isotope.js"></script>
-<script src="assets/js/accordions.js"></script>
-
-
-<script language="text/Javascript">
-
-    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-    function clearField(t) {                   //declaring the array outside of the
-        if (!cleared[t.id]) {                      // function makes it static and global
-            cleared[t.id] = 1;  // you could use true and false, but that's more typing
-            t.value = '';         // with more chance of typos
-            t.style.color = '#fff';
-        }
-    }
-</script>

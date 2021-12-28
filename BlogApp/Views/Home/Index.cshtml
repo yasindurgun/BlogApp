@@ -99,9 +99,9 @@
                                     <div class="content">
                                         <ul>
 
-                                            @foreach (var item in Model.Tags)
+                                            @foreach (var item in Model.tagList)
                                             {
-                                                <li><a href="#">@item.TagName</a></li>
+                                                <li><a href="/Home/GetPostsbyTagid/@item.Id">@item.TagName</a></li>
                                             }
 
                                             @*
